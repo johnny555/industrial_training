@@ -1,0 +1,32 @@
+version: '3'
+services:
+  foxy-desktop-full:
+    image: osrf/ros:foxy-desktop
+    volumes: 
+      - ../:/workspace:cached
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - /mnt/wslg:/mnt/wslg
+      - /usr/lib/wsl:/usr/lib/wsl
+      
+    devices: 
+      - /dev/dxg:/dev/dxg
+
+    ports:
+      - 11311:11311
+      - 50000:51000
+
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    
+    environment: 
+      - DISPLAY=:0
+      - WAYLAND_DISPLAY
+      - XDG_RUNTIME_DIR
+      - PULSE_SERVER
+    
+    command: /bin/sh -c "while sleep 1000; do :; done"

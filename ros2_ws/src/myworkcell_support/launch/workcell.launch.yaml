@@ -1,0 +1,9 @@
+launch:
+- node:
+    pkg: "fake_ar_publisher"
+    exec: "fake_ar_publisher_node"
+    name: "fake_ar_publisher_node"
+- node:
+    pkg: "myworkcell_core"
+    exec: "vision_node"
+    name: "vision_node"
